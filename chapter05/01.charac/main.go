@@ -35,6 +35,16 @@ func main() {
 
 	fmt.Println(reflect.TypeOf(funcTypeRealizeInterface)) //main.TestTypeImplInterface
 
+	var i interface{}
+	i = 35
+	fmt.Println(reflect.TypeOf(i)) // int
+	i = 3.14159265
+	fmt.Println(reflect.TypeOf(i)) // float64
+	//	 空接口在实际应用中非常有用例如fmt.Println()方法
+	/*	func Println(a ...any) (n int, err error) {  a 是空接口类型
+		return Fprintln(os.Stdout, a...)
+	}*/
+
 }
 
 type PutElephantIntoRefrigerator interface {
@@ -112,8 +122,30 @@ func (RealizeTwo) DEF() error {
 var i1 Test1 = RealizeTwo{}
 var i2 Test2 = RealizeTwo{}
 
-// Box 同样接口也可以实现嵌套
-type Box interface {
+// Box1 同样接口也可以实现嵌套
+type Box1 interface {
 	Test1
 	Test2
-}4
+}
+type Open interface {
+	Open() error
+}
+
+type Close interface {
+	Close() error
+}
+
+func (Refrigerator) Open() error {
+	return nil
+}
+
+func (Refrigerator) Close() error {
+	return nil
+}
+
+type Box interface {
+	Open
+	Close
+}
+
+var box Box1 = RealizeTwo{}
