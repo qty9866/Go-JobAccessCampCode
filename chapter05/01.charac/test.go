@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func main() {
+func fakemain() {
 	// 切片定义方式复习
 	// MAKE
 	player1 := make(map[string]string)
