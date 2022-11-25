@@ -7,21 +7,18 @@ type Rank struct {
 }
 
 var globalRank = &Rank{}
-var globalRankInitialized bool = false
-var globalRankInitializedLock sync.Mutex
+var once sync.Once
 
 func init() {
 	globalRank.standard = []string{"Aisa"}
 }
 
 func initGlobalRankStandard(standard []string) {
-	globalRankInitializedLock.Lock()
-	defer globalRankInitializedLock.Unlock()
-	if !globalRankInitialized {
-		return
-	}
-	globalRank.standard = standard
-	globalRankInitialized = true
+	// 即使每个协程都会调用，但是只会执行一次
+	// 多线程中共享内容的初始化，且只初始化一次
+	once.Do(func() {
+		globalRank.standard = standard
+	})
 }
 
 func main() {
