@@ -1,6 +1,10 @@
 package main
 
-import "sync"
+import (
+	"fmt"
+	"math/rand"
+	"sync"
+)
 
 type Rank struct {
 	standard []string
@@ -8,10 +12,11 @@ type Rank struct {
 
 var globalRank = &Rank{}
 var once sync.Once
+var wg sync.WaitGroup
 
-func init() {
+/*func init() {
 	globalRank.standard = []string{"Aisa"}
-}
+}*/
 
 func initGlobalRankStandard(standard []string) {
 	// 即使每个协程都会调用，但是只会执行一次
@@ -22,10 +27,14 @@ func initGlobalRankStandard(standard []string) {
 }
 
 func main() {
+	wg.Add(10)
 	standard := []string{"Asia"}
 	for i := 0; i < 10; i++ {
 		go func() {
 			initGlobalRankStandard(standard)
+			fmt.Println(rand.Int())
+			wg.Done()
 		}()
 	}
+	fmt.Println("Work is Done,Rank:", globalRank.standard)
 }
