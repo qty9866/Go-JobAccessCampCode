@@ -102,7 +102,6 @@ func deleteNode(head *linkedNode, data int) *linkedNode {
 		right := head.next
 		tmpNode.next = right
 		return right
-
 	}
 	for {
 		if tmpNode.next == nil {
