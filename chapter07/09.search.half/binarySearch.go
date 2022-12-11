@@ -55,20 +55,20 @@ binarySearch1
 总比较次数 74000000
 总共耗时 137.6562ms
 
-binarySearch1
+binarySearch2
 总比较次数 70000000
-总共耗时 107.5712ms
+总共耗时 105.8981ms
 */
 
 func main() {
-	arr := sampleData
+	arr := SampleData
 	QuickSort(arr, 0, int64(len(arr)-1))
 	start := time.Now()
-	for i := 0; i < 1; i++ {
-		fmt.Println(binarySearch2(arr, 501))
-		fmt.Println(binarySearch2(arr, 888))
-		fmt.Println(binarySearch2(arr, 900))
-		fmt.Println(binarySearch2(arr, 3))
+	for i := 0; i < 200*10000; i++ {
+		binarySearch2(arr, 501)
+		binarySearch2(arr, 888)
+		binarySearch2(arr, 900)
+		binarySearch2(arr, 3)
 	}
 	fmt.Println("总比较次数", totalCompare)
 	finish := time.Now()
