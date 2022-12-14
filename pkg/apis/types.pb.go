@@ -4,7 +4,7 @@
 // 	protoc        v3.21.10
 // source: types.proto
 
-package __
+package apis
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -73,11 +73,15 @@ type PersonalInformation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// @gotags: gorm:"column:name"
-	Name   string  `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Sex    string  `protobuf:"bytes,2,opt,name=sex,proto3" json:"sex,omitempty"`
-	Tall   float32 `protobuf:"fixed32,3,opt,name=tall,proto3" json:"tall,omitempty"`
-	Weight float32 `protobuf:"fixed32,4,opt,name=weight,proto3" json:"weight,omitempty"`
-	Age    int64   `protobuf:"varint,5,opt,name=age,proto3" json:"age,omitempty"`
+	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty" gorm:"column:name"`
+	// @gotags: gorm:"column:sex"
+	Sex string `protobuf:"bytes,2,opt,name=sex,proto3" json:"sex,omitempty" gorm:"column:sex"`
+	// @gotags: gorm:"column:tall"
+	Tall float32 `protobuf:"fixed32,3,opt,name=tall,proto3" json:"tall,omitempty" gorm:"column:tall"`
+	// @gotags: gorm:"column:weight"
+	Weight float32 `protobuf:"fixed32,4,opt,name=weight,proto3" json:"weight,omitempty" gorm:"column:weight"`
+	// @gotags: gorm:"column:age"
+	Age int64 `protobuf:"varint,5,opt,name=age,proto3" json:"age,omitempty" gorm:"column:age"`
 }
 
 func (x *PersonalInformation) Reset() {
