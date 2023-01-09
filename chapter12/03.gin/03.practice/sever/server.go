@@ -3,13 +3,34 @@ package main
 import (
 	"Learning-JobAccess-Camp/chapter12/02.practice/frinterface"
 	"Learning-JobAccess-Camp/pkg/apis"
+	"fmt"
 	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
+	"log"
 	"net/http"
 )
 
+func connectDB() *gorm.DB {
+	connection, err := gorm.Open(mysql.Open("root:199866@tcp(127.0.0.1:3306)/go_db"))
+	if err != nil {
+		log.Fatal("数据库连接失败", err)
+	}
+	fmt.Println("数据库连接成功")
+	return connection
+}
+
 func main() {
-	var rankServer frinterface.ServeInterface = NewFatRateRank()
+	conn := connectDB()
+	var rankServer = NewDbRank(conn, NewFatRateRank())
+	// 类型断言是否成功
+	if initRank, ok := rankServer.(frinterface.RankInitInterface); ok {
+		// 类型断言成功 开始初始化
+		if err := initRank.Init(); err != nil {
+			log.Fatal("初始化失败", err)
+		}
+	}
 
 	r := gin.Default()
 	pprof.Register(r)
@@ -78,10 +99,7 @@ func main() {
 				"ErrMessage": "获取排行榜失败",
 			})
 		} else {
-			c.JSON(200, gin.H{
-				"Message": "Get rankTop succeed",
-				"data":    top,
-			})
+			c.JSON(200, top)
 		}
 
 	})

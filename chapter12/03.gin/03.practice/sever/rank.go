@@ -68,7 +68,7 @@ func NewFatRateRank() *FatRateRank {
 	}
 }
 
-func (r *FatRateRank) inputRecord(name, sex string, fatRate ...float64) {
+func (r *FatRateRank) inputRecord(name string, sex string, fatRate ...float64) {
 	r.itemsLock.Lock()
 	defer r.itemsLock.Unlock()
 	minFatRate := math.MaxFloat64

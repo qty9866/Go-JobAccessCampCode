@@ -28,7 +28,7 @@ func CreateNewPerson(conn *gorm.DB) error {
 	})
 	err := resp.Error
 	if err != nil {
-		fmt.Println("创建SunXX对象失败")
+		fmt.Printf("创建SunXX对象失败")
 	}
 	return nil
 }
