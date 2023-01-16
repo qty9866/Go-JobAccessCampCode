@@ -15,11 +15,12 @@ func main() {
 }
 
 func etcdGetDemo() {
+	// 创建一个新的etcd客户端
 	client, err := clientV3.New(clientV3.Config{Endpoints: []string{"http://localhost:2379"}})
 	if err != nil {
 		log.Fatal(err)
 	}
-	resp, err := client.Get(context.TODO(), "a")
+	resp, err := client.Get(context.TODO(), "birthday")
 	if err != nil {
 		log.Fatal(err)
 	}

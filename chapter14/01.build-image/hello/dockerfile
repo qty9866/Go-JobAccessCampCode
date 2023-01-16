@@ -1,0 +1,4 @@
+from ubuntu:20.04
+run echo "hello server"
+copy main /usr/local/bin/
+cmd main

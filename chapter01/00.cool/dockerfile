@@ -1,0 +1,6 @@
+from golang:1.17.2
+copy main.go /tmp/
+run echo "build file server"
+workdir /tmp
+run go build ./main.go
+run mv main /usr/local/bin/

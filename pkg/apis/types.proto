@@ -5,6 +5,36 @@ message PersonalInformationList{
   repeated PersonalInformation items = 1;
 }
 
+service RankService{
+  rpc Register(PersonalInformation) returns(PersonalInformation){}
+  rpc Update(PersonalInformation) returns (PersonalInformationFatRate){}
+  rpc GetFatRate(PersonalInformation) returns (PersonalRank){}
+  rpc GetTop(null) returns (PersonalRanks){}
+
+  rpc RegisterPersons(stream PersonalInformation) returns (PersonalInformationList){}
+  rpc WatchPersons(null) returns (stream PersonalInformation){}
+}
+
+message null {}
+
+message PersonalRank{
+  string name = 1;
+  string sex = 2;
+  int64 rankNumber = 3;
+  float fatRate = 4;
+}
+
+message PersonalRanks{
+  // repeated 表示数组 + 类型 + 变量名
+  repeated PersonalRank personalRanks=1;
+}
+
+message PersonalInformationFatRate {
+  string name = 1;
+  float fatRate = 2;
+
+}
+
 message PersonalInformation{
   // @gotags: gorm:"primaryKey;column:ID"
   int64 id = 1;
